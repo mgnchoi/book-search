@@ -2,7 +2,7 @@ import type { SearchResponse } from './types';
 
 const BASE_URL = 'https://openlibrary.org/search.json';
 const MAX_TITLES = 10;
-const TIMEOUT = 15000;
+const TIMEOUT = 8000;
 
 interface OpenLibrarySearchResponse {
   numFound: number,

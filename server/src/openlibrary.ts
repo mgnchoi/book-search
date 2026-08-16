@@ -1,19 +1,19 @@
- import type { SearchResponse } from './types';
+import type { SearchResponse } from './types';
 
 const BASE_URL = 'https://openlibrary.org/search.json';
 const MAX_TITLES = 10;
 const TIMEOUT = 15000;
 
 interface OpenLibrarySearchResponse {
-numFound: number,
-docs: { title?: string }[]
+  numFound: number,
+  docs: { title?: string }[]
 }
 
 export async function searchOpenLibrary(searchTerm: string): Promise<SearchResponse> {
   // construct url
   // use fields and limit to pre-filter returned data
   const url = `${BASE_URL}?q=${encodeURIComponent(searchTerm)}&fields=title&limit=${MAX_TITLES}`;
-  
+
   // make request to open library api
   const response = await fetch(url, { signal: AbortSignal.timeout(TIMEOUT) });
 

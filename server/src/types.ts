@@ -15,7 +15,7 @@ export interface SearchResponse {
 }
 
 export type SortKey = 'searchTerm' | 'count';
-export type SortOrder = 'asc'| 'desc';
+export type SortOrder = 'asc' | 'desc';
 
 // dictionary for column sorting on db
 export const SORT_COLUMNS: Record<SortKey, string> = {

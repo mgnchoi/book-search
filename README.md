@@ -32,6 +32,9 @@ Backend
     - `cd client`
     - `npm run dev`
 
+4. Open
+    - Go to http://localhost:5173 in your browser
+
 ### Production
 2. Build
     - `npm run build`
@@ -39,7 +42,8 @@ Backend
 3. Run
     - `npm start`
 
-Open http://localhost:3000 in browser
+5. Open
+    - Go to http://localhost:3000 in your browser
 
 ## Database
 

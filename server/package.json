@@ -1,5 +1,5 @@
 {
-  "name": "llnl-take-home-server",
+  "name": "book-search-server",
   "private": true,
   "version": "1.0.0",
   "scripts": {

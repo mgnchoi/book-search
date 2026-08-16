@@ -1,4 +1,5 @@
-# Book Search Using Open Library Search API
+# Book Search 
+- Uses Open Library Search API
 
 ## Stack
 

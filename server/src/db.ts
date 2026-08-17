@@ -29,7 +29,7 @@ export function insertSearch(db: Database.Database, username: string, searchTerm
 
 // get all previous searches by username 
 export function getPreviousSearches(db: Database.Database, username: string, sortKey: SortKey, sortOrder: SortOrder): SavedSearch[] {
-  const expression = SORT_COLUMNS[sortKey];
+  const column = SORT_COLUMNS[sortKey];
   const direction = sortOrder === 'asc' ? 'asc' : 'desc';
 
   const stmt = db.prepare(
@@ -39,7 +39,7 @@ export function getPreviousSearches(db: Database.Database, username: string, sor
       result_count AS resultCount
     FROM searches
     WHERE username = ? COLLATE NOCASE
-    ORDER BY ${expression} ${direction}`
+    ORDER BY ${column} ${direction}`
   )
   return stmt.all(username) as SavedSearch[];
 }

@@ -106,7 +106,8 @@ export default function App() {
 
   return (
     <div className="container my-3">
-      <h2>Search for books using the Open Library Search API</h2>
+      <h1>Book Search</h1>
+      <p className="text-body-secondary">Search the Open Library Catalog and view your search history</p>
       <form onSubmit={handleSubmit} className="m-3">
         <div className="mb-3">
           <label className="form-label" htmlFor="username">Username</label>
@@ -129,6 +130,9 @@ export default function App() {
         </div>
       </form>
       {error && <div className="alert alert-danger" role="alert">{error}</div>}
+      {!searching && !gettingPrevious && !searchResult && !previousSearches && (
+        <p className="text-body-secondary">Enter a username and search term to get started</p>
+      )}
       {searchResult && <SearchResults searchedTerm={searchedTerm} result={searchResult} />}
       {previousSearches && <PreviousSearches user={username} searches={previousSearches} sortKey={sortKey} sortOrder={sortOrder} onSortChange={handleSortChange} />}
     </div >

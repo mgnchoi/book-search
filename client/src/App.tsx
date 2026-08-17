@@ -104,6 +104,16 @@ export default function App() {
     await loadPreviousSearches(sortKey, sortOrder);
   }
 
+  // Helper to control disabled of CLEAR button
+  function hasInputOrContent(): boolean {
+    if (username !== '' || searchTerm !== '' || error !== '' || searchResult !== null || previousSearches !== null) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   return (
     <div className="container my-3">
       <h1>Book Search</h1>
@@ -123,7 +133,7 @@ export default function App() {
           <button type="submit" className="btn btn-primary" disabled={searching || gettingPrevious}>
             {searching ? 'Searching...' : 'Search'}
           </button>
-          <button type="button" className="btn btn-secondary" disabled={searching || gettingPrevious || (username === '' && searchTerm === '')} onClick={handleClear}>Clear</button>
+          <button type="button" className="btn btn-secondary" disabled={searching || gettingPrevious || !hasInputOrContent()} onClick={handleClear}>Clear</button>
           <button type="button" className="btn btn-outline-primary ms-auto" disabled={searching || gettingPrevious} onClick={handleListPrevious}>
             {gettingPrevious ? 'Loading...' : 'List Previous'}
           </button>

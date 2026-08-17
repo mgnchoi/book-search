@@ -1,6 +1,6 @@
 # Book Search 
-- A web app for searching the Open Library catalog
-- Enter a username and a search term to see how many books match and the first ten titles
+- A web app for searching the Open Library catalog using their Search API
+- Enter a username and a search term to see how many books match and get the first ten titles
 - Use the List Previous button to show the search history for a given user
     - Search history is sortable by search term or result count
 

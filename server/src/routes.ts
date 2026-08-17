@@ -6,6 +6,9 @@ import { SearchResponse, SORT_COLUMNS, type SearchRequestBody, type SortKey, typ
 
 const DEFAULT_SORT_KEY: SortKey = 'searchTerm';
 const DEFAULT_SORT_ORDER: SortOrder = 'asc';
+const USERNAME_REGEX = /^[a-zA-Z0-9_.-]+$/;
+const SEARCH_TERM_REGEX = /^[a-zA-Z0-9\s'\-:,.&()]+$/;
+const INVALID_USERNAME_MSG = 'Username can only contain letters, numbers, underscores, periods, and hyphens';
 
 export function createRoutes(db: Database.Database): Router {
   const router = Router();
@@ -17,8 +20,12 @@ export function createRoutes(db: Database.Database): Router {
 
     // trim and validate username
     const trimmedUsername = typeof username === 'string' ? username.trim() : undefined;
+    // required field
     if (!trimmedUsername) return res.status(400).json({ error: 'Missing required fields' });
+    // length
     if (trimmedUsername.length < 3 || trimmedUsername.length > 25) return res.status(400).json({ error: 'Username must be 3-25 characters' });
+    // special chars
+    if (!USERNAME_REGEX.test(trimmedUsername)) return res.status(400).json({ error: INVALID_USERNAME_MSG });
 
     // validate sort key and fallback to default
     let validSortKey: SortKey = DEFAULT_SORT_KEY;
@@ -56,9 +63,14 @@ export function createRoutes(db: Database.Database): Router {
     const trimmedUsername = username?.trim();
     const trimmedSearchTerm = searchTerm?.trim();
 
+    // required fields
     if (!trimmedUsername || !trimmedSearchTerm) return res.status(400).json({ error: 'Missing required fields' })
+    // length
     if (trimmedUsername.length < 3 || trimmedUsername.length > 25) return res.status(400).json({ error: 'Username must be 3-25 characters' });
     if (trimmedSearchTerm.length < 3 || trimmedSearchTerm.length > 100) return res.status(400).json({ error: 'Search term must be 3-100 characters' });
+    // special chars
+    if (!USERNAME_REGEX.test(trimmedUsername)) return res.status(400).json({ error: INVALID_USERNAME_MSG });
+    if (!SEARCH_TERM_REGEX.test(trimmedSearchTerm)) return res.status(400).json({ error: `Search term can only contain letters, numbers, spaces, and ' - : , & ( )` });
 
     let result: SearchResponse;
 

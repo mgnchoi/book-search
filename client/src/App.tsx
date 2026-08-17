@@ -4,6 +4,10 @@ import { PreviousSearch, SearchResponse, SortKey, SortOrder } from "./types";
 import SearchResults from "./components/SearchResults";
 import PreviousSearches from "./components/PreviousSearches";
 
+const USERNAME_REGEX = /^[a-zA-Z0-9_.-]+$/;
+const SEARCH_TERM_REGEX = /^[a-zA-Z0-9\s'\-:,.&()]+$/;
+const INVALID_USERNAME_MSG = 'Username can only contain letters, numbers, underscores, periods, and hyphens';
+
 export default function App() {
   // Input fields
   const [username, setUsername] = useState('');
@@ -45,23 +49,35 @@ export default function App() {
     e.preventDefault();
 
     // validate input
-    if (!username.trim() || !searchTerm.trim()) {
+    const trimmedUsername = username.trim();
+    const trimmedSearchTerm = searchTerm.trim();
+    // required fields
+    if (!trimmedUsername || !trimmedSearchTerm) {
       setError('Username and search term are required');
       return;
     }
 
-    if (username.trim().length < 3 || searchTerm.trim().length < 3) {
+    // length
+    if (trimmedUsername.length < 3 || trimmedSearchTerm.length < 3) {
       setError('Username and search term must be at least 3 characters');
       return;
     }
-
-    if (username.trim().length > 25) {
+    if (trimmedUsername.length > 25) {
       setError('Username must be 25 characters or less');
       return;
     }
-
-    if (searchTerm.trim().length > 100) {
+    if (trimmedSearchTerm.length > 100) {
       setError('Search term must be 100 characters or less');
+      return;
+    }
+
+    // special chars
+    if (!USERNAME_REGEX.test(trimmedUsername)) {
+      setError(INVALID_USERNAME_MSG);
+      return;
+    }
+    if (!SEARCH_TERM_REGEX.test(trimmedSearchTerm)) {
+      setError(`Search term can only contain letters, numbers, spaces, and ' - : , & ( )`);
       return;
     }
 
@@ -101,13 +117,23 @@ export default function App() {
 
   // LIST PREVIOUS BUTTON
   async function handleListPrevious() {
-    // validate input and display error if username is not populated
-    if (!username.trim()) {
+    // validate input
+    // required field
+    const trimmedUsername = username.trim();
+    if (!trimmedUsername) {
       setError('Username is required');
       return;
     }
-    if (username.trim().length < 3 || username.trim().length > 25) {
+
+    // length
+    if (trimmedUsername.length < 3 || trimmedUsername.length > 25) {
       setError('Username must be 3-25 characters');
+      return;
+    }
+
+    // special chars
+    if (!USERNAME_REGEX.test(trimmedUsername)) {
+      setError(INVALID_USERNAME_MSG);
       return;
     }
 

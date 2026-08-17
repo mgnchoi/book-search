@@ -59,18 +59,28 @@ export function createRoutes(db: Database.Database): Router {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
+    let result: SearchResponse;
+
     try {
       // query Open Library with search term
-      const result = await searchOpenLibrary(trimmedSearchTerm);
+      result = await searchOpenLibrary(trimmedSearchTerm);
+    } catch (error) {
+      console.error('Request to Open Library failed: ', error);
+      // return failure
+      return res.status(502).json({ error: 'Could not reach Open Library' });
+    }
+
+    try {
       // save search to db
       insertSearch(db, trimmedUsername, trimmedSearchTerm, result.resultCount);
-      // return success
-      return res.status(201).json(result);
     } catch (error) {
-      console.error('Search or save failed: ', error);
+      console.error('Saving search failed: ', error);
       // return failure
-      return res.status(500).json({ error: 'An unexpected error occurred while retrieving search results' });
+      return res.status(500).json({ error: 'Error saving search results' });
     }
+
+    // return success
+    return res.status(201).json(result);
   });
 
   return router;

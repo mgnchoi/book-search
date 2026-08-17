@@ -1,4 +1,3 @@
-import { search } from '../api';
 import type { PreviousSearch, SortKey, SortOrder } from '../types';
 
 interface PreviousSearchesProps {

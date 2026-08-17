@@ -35,7 +35,7 @@ export default function SearchResults({ searchedTerm, result }: SearchResultsPro
         </tbody>
       </table>
       <div className="text-center">
-        <p>{result.titles.length} out of {result.resultCount} results</p>
+        <p>Showing {result.titles.length} out of {result.resultCount} results</p>
       </div>
     </div>
   );

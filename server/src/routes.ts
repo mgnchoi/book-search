@@ -18,6 +18,7 @@ export function createRoutes(db: Database.Database): Router {
     // trim and validate username
     const trimmedUsername = typeof username === 'string' ? username.trim() : undefined;
     if (!trimmedUsername) return res.status(400).json({ error: 'Missing required fields' });
+    if (trimmedUsername.length < 3 || trimmedUsername.length > 25) return res.status(400).json({ error: 'Username must be 3-25 characters' });
 
     // validate sort key and fallback to default
     let validSortKey: SortKey = DEFAULT_SORT_KEY;
@@ -55,9 +56,9 @@ export function createRoutes(db: Database.Database): Router {
     const trimmedUsername = username?.trim();
     const trimmedSearchTerm = searchTerm?.trim();
 
-    if (!trimmedUsername || !trimmedSearchTerm) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
+    if (!trimmedUsername || !trimmedSearchTerm) return res.status(400).json({ error: 'Missing required fields' })
+    if (trimmedUsername.length < 3 || trimmedUsername.length > 25) return res.status(400).json({ error: 'Username must be 3-25 characters' });
+    if (trimmedSearchTerm.length < 3 || trimmedSearchTerm.length > 100) return res.status(400).json({ error: 'Search term must be 3-100 characters' });
 
     let result: SearchResponse;
 

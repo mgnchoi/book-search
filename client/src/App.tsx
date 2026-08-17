@@ -44,9 +44,24 @@ export default function App() {
     // prevent auto submit
     e.preventDefault();
 
-    // validate input and display error if fields are not populated
+    // validate input
     if (!username.trim() || !searchTerm.trim()) {
       setError('Username and search term are required');
+      return;
+    }
+
+    if (username.trim().length < 3 || searchTerm.trim().length < 3) {
+      setError('Username and search term must be at least 3 characters');
+      return;
+    }
+
+    if (username.trim().length > 25) {
+      setError('Username must be 25 characters or less');
+      return;
+    }
+
+    if (searchTerm.trim().length > 100) {
+      setError('Search term must be 100 characters or less');
       return;
     }
 
@@ -91,6 +106,10 @@ export default function App() {
       setError('Username is required');
       return;
     }
+    if (username.trim().length < 3 || username.trim().length > 25) {
+      setError('Username must be 3-25 characters');
+      return;
+    }
 
     await loadPreviousSearches(sortKey, sortOrder);
   }
@@ -122,12 +141,12 @@ export default function App() {
         <div className="mb-3">
           <label className="form-label" htmlFor="username">Username</label>
           <span className="text-danger">*</span>
-          <input type="text" className="form-control" id="username" maxLength={100} placeholder="Enter your username" value={username} onChange={e => setUsername(e.target.value)} />
+          <input type="text" className="form-control" id="username" placeholder="Enter your username" value={username} onChange={e => setUsername(e.target.value)} />
         </div>
         <div className="mb-3">
           <label className="form-label" htmlFor="searchTerm">Search Term</label>
           <span className="text-danger">*</span>
-          <input type="text" className="form-control" id="searchTerm" maxLength={100} placeholder="Enter a search term" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+          <input type="text" className="form-control" id="searchTerm" placeholder="Enter a search term" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
         </div>
         <div className="d-flex gap-2">
           <button type="submit" className="btn btn-primary" disabled={searching || gettingPrevious}>

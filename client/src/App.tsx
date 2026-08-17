@@ -122,8 +122,8 @@ export default function App() {
           <button type="submit" className="btn btn-primary" disabled={searching || gettingPrevious}>
             {searching ? 'Searching...' : 'Search'}
           </button>
-          <button type="button" className="btn btn-secondary" disabled={searching || gettingPrevious} onClick={handleClear}>Clear</button>
-          <button type="button" className="btn btn-primary ms-auto" disabled={searching || gettingPrevious} onClick={handleListPrevious}>
+          <button type="button" className="btn btn-secondary" disabled={searching || gettingPrevious || username === '' || searchTerm === ''} onClick={handleClear}>Clear</button>
+          <button type="button" className="btn btn-info ms-auto" disabled={searching || gettingPrevious} onClick={handleListPrevious}>
             {gettingPrevious ? 'Loading...' : 'List Previous'}
           </button>
         </div>

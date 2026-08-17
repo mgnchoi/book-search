@@ -28,7 +28,7 @@ export function insertSearch(db: Database.Database, username: string, searchTerm
 }
 
 // get all previous searches by username 
-export function getSearches(db: Database.Database, username: string, sortKey: SortKey, sortOrder: SortOrder): SavedSearch[] {
+export function getPreviousSearches(db: Database.Database, username: string, sortKey: SortKey, sortOrder: SortOrder): SavedSearch[] {
   const expression = SORT_COLUMNS[sortKey];
   const direction = sortOrder === 'asc' ? 'asc' : 'desc';
 

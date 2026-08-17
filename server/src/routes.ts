@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import type Database from 'better-sqlite3';
 import { searchOpenLibrary } from './openlibrary';
-import { getSearches, insertSearch } from './db';
-import { SORT_COLUMNS, type SearchRequestBody, type SortKey, type SortOrder } from './types';
+import { getPreviousSearches, insertSearch } from './db';
+import { SearchResponse, SORT_COLUMNS, type SearchRequestBody, type SortKey, type SortOrder } from './types';
 
 const DEFAULT_SORT_KEY: SortKey = 'searchTerm';
 const DEFAULT_SORT_ORDER: SortOrder = 'asc';
@@ -35,7 +35,7 @@ export function createRoutes(db: Database.Database): Router {
 
     try {
       // get sorted searches from db
-      const previousSearches = getSearches(db, trimmedUsername, validSortKey, validSortOrder);
+      const previousSearches = getPreviousSearches(db, trimmedUsername, validSortKey, validSortOrder);
       // return success
       return res.status(200).json({ previousSearches });
     } catch (error) {

@@ -105,26 +105,28 @@ export default function App() {
   }
 
   return (
-    <div className="m-3">
+    <div className="container my-3">
       <h2>Search for books using the Open Library Search API</h2>
       <form onSubmit={handleSubmit} className="m-3">
         <div className="mb-3">
           <label className="form-label" htmlFor="username">Username</label>
           <span className="text-danger">*</span>
-          <input type="text" className="form-control" id="username" placeholder="Enter your username" value={username} onChange={e => setUsername(e.target.value)} />
+          <input type="text" className="form-control" id="username" maxLength={100} placeholder="Enter your username" value={username} onChange={e => setUsername(e.target.value)} />
         </div>
         <div className="mb-3">
           <label className="form-label" htmlFor="searchTerm">Search Term</label>
           <span className="text-danger">*</span>
-          <input type="text" className="form-control" id="searchTerm" placeholder="Enter a search term" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+          <input type="text" className="form-control" id="searchTerm" maxLength={100} placeholder="Enter a search term" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
         </div>
-        <button type="submit" className="btn btn-primary" disabled={searching || gettingPrevious}>
-          {searching ? 'Searching...' : 'Search'}
-        </button>
-        <button type="button" className="btn btn-primary mx-3" disabled={searching || gettingPrevious} onClick={handleClear}>Clear</button>
-        <button type="button" className="btn btn-primary" disabled={searching || gettingPrevious} onClick={handleListPrevious}>
-          {gettingPrevious ? 'Loading...' : 'List Previous'}
-        </button>
+        <div className="d-flex gap-2">
+          <button type="submit" className="btn btn-primary" disabled={searching || gettingPrevious}>
+            {searching ? 'Searching...' : 'Search'}
+          </button>
+          <button type="button" className="btn btn-secondary" disabled={searching || gettingPrevious} onClick={handleClear}>Clear</button>
+          <button type="button" className="btn btn-primary ms-auto" disabled={searching || gettingPrevious} onClick={handleListPrevious}>
+            {gettingPrevious ? 'Loading...' : 'List Previous'}
+          </button>
+        </div>
       </form>
       {error && <div className="alert alert-danger" role="alert">{error}</div>}
       {searchResult && <SearchResults searchedTerm={searchedTerm} result={searchResult} />}

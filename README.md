@@ -1,5 +1,8 @@
 # Book Search 
-- Uses Open Library Search API
+- A web app for searching the Open Library catalog
+- Enter a username and a search term to see how many books match and the first ten titles
+- Use the List Previous button to show the search history for a given user
+    - Search history is sortable by search term or result count
 
 ## Stack
 
@@ -32,8 +35,7 @@ Backend
     - `cd client`
     - `npm run dev`
 
-4. Open
-    - Go to http://localhost:5173 in your browser
+4. Open http://localhost:5173 in your browser
 
 ### Production
 2. Build
@@ -42,8 +44,7 @@ Backend
 3. Run
     - `npm start`
 
-5. Open
-    - Go to http://localhost:3000 in your browser
+5. Open http://localhost:3000 in your browser
 
 ## Database
 

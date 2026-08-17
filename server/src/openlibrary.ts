@@ -19,7 +19,7 @@ export async function searchOpenLibrary(searchTerm: string): Promise<SearchRespo
 
   // throw error if fetch fails, router will handle
   if (!response.ok) {
-    throw new Error(`Open Library responsed with ${response.status}`);
+    throw new Error(`Open Library responded with ${response.status}`);
   }
 
   // parse response data
